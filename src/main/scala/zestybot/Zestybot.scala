@@ -17,7 +17,8 @@ class Zestybot(clientId: String, slackWebhookUri: String) {
   import io.circe.generic.auto._, io.circe.syntax._
 
   def doIt() = {
-    slackableMessage.flatMap(postToSlackWebhook)
+    import scala.concurrent.duration._
+    Await.result(slackableMessage.flatMap(postToSlackWebhook), 10.seconds)
     backend.close()
   }
 
@@ -41,7 +42,6 @@ class Zestybot(clientId: String, slackWebhookUri: String) {
 
 object Zestybot {
   def main(args: Array[String]) = {
-    import scala.concurrent.duration._
     val zestybot = new Zestybot(args(0), args(1))
     zestybot.doIt()
   }
