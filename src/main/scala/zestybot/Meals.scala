@@ -1,5 +1,7 @@
 package zestybot
 
+import java.time.ZonedDateTime
+
 case class Meals(meals: Seq[Meal])
 
 /**
@@ -22,7 +24,7 @@ case class Meals(meals: Seq[Meal])
   * "menu_pdf_url": "https://api.zesty.com/client_portal_api/meals/5a78fc95d0f1b900132a516d/menu.pdf"
   * },
 q  */
-case class Meal(id: String, delivery_date: String, restaurant_name: String, restaurant_description: String)
+case class Meal(id: String, delivery_date: ZonedDateTime, restaurant_name: String, restaurant_description: String)
 case class MealDetail(meals: Seq[Meal], meal_items: Seq[MealItem])
 case class MealItem(id: Long, quantity: Int, instructions: String, dish_id: Long)
 /**

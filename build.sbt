@@ -16,7 +16,8 @@ lazy val root = (project in file(".")).
       "com.softwaremill.sttp" %% "circe" % "1.1.4",
       "com.softwaremill.sttp" %% "akka-http-backend" % "1.1.4",
       "io.circe" %% "circe-generic" % "0.9.3",
-      "io.circe" %% "circe-parser" % "0.9.3"
+      "io.circe" %% "circe-parser" % "0.9.3",
+      "io.circe" %% "circe-java8" % "0.9.3"
     ),
     dockerfile in docker := {
       val jarFile: File = sbt.Keys.`package`.in(Compile, packageBin).value
