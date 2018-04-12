@@ -18,9 +18,12 @@ class Zestybot(clientId: String, slackWebhookUri: String) {
   import io.circe.generic.auto._, io.circe.java8.time._
 
   def doIt() = {
-    import scala.concurrent.duration._
-    Await.result(slackableMessage.flatMap(postToSlackWebhook), 10.seconds)
-    backend.close()
+    try {
+      import scala.concurrent.duration._
+      Await.result(slackableMessage.flatMap(postToSlackWebhook), 10.seconds)
+    } finally {
+      backend.close()
+    }
   }
 
   def postToSlackWebhook(slackMessage: SlackMessage) = {
@@ -42,7 +45,7 @@ class Zestybot(clientId: String, slackWebhookUri: String) {
 }
 
 object Zestybot {
-  def main(args: Array[String]) = {
+  def main(args: Array[String]): Unit = {
     val zestybot = new Zestybot(args(0), args(1))
     zestybot.doIt()
   }
